@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lessons List</title>
+  <!-- Include Vue.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <!-- Include Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Link to External CSS File -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <h1>Available Lessons</h1>
+
+    <div class="search-bar">
+      <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" v-model="searchQuery" placeholder="Search lessons by subject or location">
+      </div>
+    </div>
+
+    <div class="sorting-controls" v-if="!showCart">
+      <label for="sort-by">Sort by:</label>
+      <select id="sort-by" v-model="sortBy">
+        <option value="subject">Subject</option>
+        <option value="location">Location</option>
+        <option value="price">Price</option>
+        <option value="spaces">Spaces</option>
+      </select>
+
+      <label for="sort-order">Order:</label>
+      <select id="sort-order" v-model="sortOrder">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+      </select>
+    </div>
+
+    <button v-on:click="toggleCart" :disabled="cart.length === 0" class="cart-toggle-btn">
+      {{ showCart ? 'Back to Lessons' : 'View Cart' }}
+      <i class="fas fa-shopping-cart"></i>
+    </button>
+
+    <div class="lesson-list" v-if="!showCart">
+      <div class="lesson" v-for="lesson in sortedLessons" :key="lesson.id">
+        <div class="subject">{{ lesson.subject }}</div>
+        <img :src="lesson.image" alt="Lesson Image">
+        <div class="location">Location: {{ lesson.location }}</div>
+        <div class="price">Price: ${{ lesson.price }}</div>
+        <div class="spaces" :class="{ outOfStock: lesson.spaces === 0 }">
+          Available: 
+          <span v-if="lesson.spaces > 0">{{ lesson.spaces }}</span>
+          <span v-else>Out of Stock</span>
+        </div>
+
+        <div class="rating">
+          Rating:
+          <span v-for="star in 5" :key="star">
+            <i class="fa" :class="star <= lesson.rating ? 'fa-star' : 'fa-star-o'"></i>
+          </span>
+        </div>
+
+        <button v-on:click="addToCart(lesson)" :disabled="lesson.spaces === 0" class="add-to-cart">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    
+    <div id="app">
+      <!-- Cart Section -->
+      <div v-if="showCart">
+        <h3>Your Cart</h3>
+        <ul>
+          <li v-for="(item, index) in cart" :key="index">
+            {{ item.subject }} - ${{ item.price }}
+            <button v-on:click="removeFromCart(item, index)">Remove</button>
+          </li>
+        </ul>
+        <button v-on:click="checkout">Checkout</button>
+      </div>
+
+    <!-- Modal Popup for Checkout -->
+    <!-- Modal Popup -->
+    <div v-if="showModal" class="modal">
+      <div class="modal-content">
+        <h3>Checkout</h3>
+        <label>
+          Name:
+          <input type="text" v-model="name" @input="validateName" />
+          <span class="error">{{ nameError }}</span>
+        </label>
+        <label>
+          Phone:
+          <input type="text" v-model="phone" @input="validatePhone" />
+          <span class="error">{{ phoneError }}</span>
+        </label>
+        <button v-on:click="closeModal">Back</button>
+        <button v-on:click="sendOrder" :disabled="!isFormValid">Send</button>
+      </div>
+    </div>
+
+
+    <!-- Confirmation Message -->
+    <div v-if="confirmationMessage" class="confirmation">
+      <p>{{ confirmationMessage }}</p>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

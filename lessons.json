@@ -1,0 +1,141 @@
+{
+    
+    "id": 1001,
+    "subject": "Math",
+    "price": 30,
+    "image": "https://schoolizer.com/img/articles_photos/17062655360.jpg",
+    "spaces": 5,
+    "rating": 4,
+    "location": "London"
+  }
+  
+  {
+    "id": 1002,
+    "subject": "Science",
+    "price": 40,
+    "image": "https://img.freepik.com/free-vector/science-banner-with-doodle-icons_1308-132177.jpg",
+    "spaces": 4,
+    "rating": 3,
+    "location": "New York"
+  }
+  
+  {
+    "id": 1003,
+    "subject": "History",
+    "price": 25,
+    "image": "https://thumbs.dreamstime.com/b/history-doodles-lettering-white-background-137829155.jpg",
+    "spaces": 3,
+    "rating": 2,
+    "location": "Rome"
+  }
+  
+  {
+    "id": 1004,
+    "subject": "Geography",
+    "price": 35,
+    "image": "https://img.freepik.com/premium-vector/geography-doodle-line-set-school-university-outline-subject_399998-72.jpg",
+    "spaces": 2,
+    "rating": 5,
+    "location": "Italy"
+  }
+
+  {
+    "id": 1005,
+    "subject": "Physics",
+    "price": 50,
+    "image": "https://img.freepik.com/premium-vector/physics-doodle-line-set-school-university-outline-subject_399998-64.jpg",
+    "spaces": 5,
+    "rating": 3,
+    "location": "China"
+  }
+  
+  {
+    "id": 1006,
+    "subject": "Chemistry",
+    "price": 45,
+    "image": "https://img.freepik.com/premium-vector/flask-with-chemical-solution-hand-drawn-doodle-icon_1034071-2226.jpg",
+    "spaces": 7,
+    "rating": 1,
+    "location": "Russia"
+  }
+  
+  {
+    "id": 1007,
+    "subject": "Biology",
+    "price": 40,
+    "image": "https://img.freepik.com/premium-vector/biology-doodle-set-collection-hand-drawn-elements-science-biology-circle-shape_308665-1571.jpg",
+    "spaces": 1,
+    "rating": 2,
+    "location": "Sardinia"
+  }
+  
+  {
+    "id": 1008,
+    "subject": "English",
+    "price": 20,
+    "image": "https://thumbs.dreamstime.com/b/english-courses-doodle-vector-concept-illustration-learning-language-171970236.jpg",
+    "spaces": 5,
+    "rating": 5,
+    "location": "Turkey"
+  }
+  
+  {
+    "id": 1009,
+    "subject": "Art",
+    "price": 15,
+    "image": "https://img.freepik.com/premium-vector/art-drawing-doodle-line-set-school-university-outline-subject_399998-63.jpg",
+    "spaces": 0,
+    "rating": 2,
+    "location": "France"
+  }
+  
+  {
+    "id": 1010,
+    "subject": "Music",
+    "price": 60,
+    "image": "https://img.freepik.com/premium-vector/doodle-music-element-background_97378-2266.jpg",
+    "spaces": 2,
+    "rating": 2,
+    "location": "Monaco"
+  }
+  
+  {
+    "id": 1011,
+    "subject": "Computer Science",
+    "price": 65,
+    "image": "https://png.pngtree.com/png-vector/20221215/ourmid/pngtree-outline-of-computer-science-doodle-line-set-for-schools-and-universities-depicting-the-subject-vector-png-image_43468344.jpg",
+    "spaces": 10,
+    "rating": 5,
+    "location": "Switzerland"
+  }
+  
+  {
+    "id": 1012,
+    "subject": "Spanish",
+    "price": 50,
+    "image": "https://media.istockphoto.com/id/1127840781/vector/spanish-hand-drawn-doodles-and-lettering.jpg?s=612x612&w=0&k=20&c=XABgys0LnU0htnVYWsGgZAsL8vktJpOkmlJ6bwnayH4=",
+    "spaces": 6,
+    "rating": 4,
+    "location": "Malta"
+  }
+  
+  {
+    "id": 1013,
+    "subject": "Astronomy",
+    "price": 45,
+    "image": "https://img.freepik.com/premium-vector/astronomy-concept-banner-design-with-flat-line-doodle-pattern-hand-drawing-texture-with-stars-planets-solar-system-comets-asteroids-satellite-rocket-cosmos-vector-illustration-web_198565-1909.jpg",
+    "spaces": 15,
+    "rating": 5,
+    "location": "USA"
+  }
+  
+  {
+    "id": 1014,
+    "subject": "Economics",
+    "price": 65,
+    "image": "https://png.pngtree.com/png-clipart/20230921/original/pngtree-outline-subjects-of-economics-and-business-illustrated-in-doodle-line-set-png-image_12510980.png",
+    "spaces": 4,
+    "rating": 5,
+    "location": "Amsterdam"
+  }
+  

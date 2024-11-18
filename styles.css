@@ -1,0 +1,283 @@
+/* Styling for the sorting controls */
+.sorting-controls {
+    margin-bottom: 20px;
+  }
+  
+  /* Styling for the lessons list */
+  .lesson-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Styling for each lesson card */
+  .lesson {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s;
+  }
+  
+  .lesson:hover {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  }
+  
+  .lesson img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .lesson .icon {
+    font-size: 2rem;
+    color: #4CAF50;
+  }
+  
+  .lesson .subject {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .lesson .location {
+    color: gray;
+  }
+  
+  .lesson .price {
+    color: #E91E63;
+    font-weight: bold;
+  }
+  
+  .lesson .spaces {
+    margin-top: 10px;
+  }
+  
+  .lesson .spaces span {
+    font-weight: bold;
+  }
+  
+  /* Styling for Add to Cart button */
+  .add-to-cart {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .add-to-cart:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  
+  /* Styling for Cart Toggle Button */
+  .cart-toggle-btn {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .cart-toggle-btn:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  
+  /* Cart page styling */
+  .cart-page {
+    border-top: 2px solid #ccc;
+    padding-top: 20px;
+  }
+  
+  .remove-btn {
+    margin-left: 10px;
+    background-color: #E91E63;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .remove-btn:hover {
+    background-color: #D81B60;
+  }
+  
+  /* Error message styling */
+.error {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  
+  /* Checkout button styling */
+  .checkout-btn {
+    background-color: #FFC107;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .checkout-btn:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
+  
+  /* Confirmation message styling */
+  .confirmation-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  /* Styling for the search bar */
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.error-message {
+  color: red;
+  font-size: 0.9em;
+}
+.product-listing {
+  margin: 20px 0;
+}
+.checkout {
+  margin-top: 20px;
+}
+
+/* Styling for lessons out of stock */
+.spaces.outOfStock span {
+  color: red;
+  font-weight: bold;
+}
+
+/* Styling for rating stars */
+.rating {
+  margin-top: 10px;
+}
+
+.rating i {
+  color: gold;
+  margin-right: 5px;
+}
+
+/* Search Bar Styling */
+.search-bar {
+  display: flex;
+  margin: 20px 0;
+}
+
+.search-container {
+  position: relative;
+  width: 80%;
+  max-width: 500px;
+}
+
+.search-container i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 18px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 10px 10px 10px 35px; /* Add padding for the search icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-container input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+
+.cart-toggle-btn {
+  justify-content: left;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-toggle-btn i {
+  margin-left: 10px;
+}
+
+.cart-toggle-btn:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.lesson {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.outOfStock {
+  color: red;
+  font-weight: bold;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+}
+.error {
+  color: red;
+  font-size: 0.9em;
+}
+.confirmation {
+  margin-top: 20px;
+  font-weight: bold;
+  color: green;
+}
