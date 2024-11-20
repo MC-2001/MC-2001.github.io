@@ -101,9 +101,6 @@ new Vue({
         console.error('Error deleting lesson:', error);
       }
     },
-    toggleCart() {
-      this.showCart = !this.showCart;
-    },
     removeFromCart(item, index) {
       item.spaces++;
       this.cart.splice(index, 1);
