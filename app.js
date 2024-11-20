@@ -40,7 +40,6 @@ new Vue({
       return this.name && !this.nameError && this.phone && !this.phoneError;
     }
   },
-  methods: {
     methods: {
       toggleCart() {
         this.showCart = !this.showCart;
@@ -142,4 +141,4 @@ new Vue({
   mounted() {
     this.fetchProducts();
   }
-}});
+});
