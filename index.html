@@ -74,8 +74,11 @@
         <h3>Your Cart</h3>
         <ul>
           <li v-for="(item, index) in cart" :key="index">
-            {{ item.subject }} - ${{ item.price }}
-            <button v-on:click="removeFromCart(item, index)">Remove</button>
+            <img :src="item.image" alt="Lesson Image" class="cart-item-image">
+            <div class="cart-item-details">
+              <p>{{ item.subject }} - ${{ item.price }}</p>
+              <button v-on:click="removeFromCart(item, index)">Remove</button>
+            </div>
           </li>
         </ul>
         <button v-on:click="checkout">Checkout</button>

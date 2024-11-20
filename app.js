@@ -41,6 +41,10 @@ new Vue({
     }
   },
   methods: {
+    methods: {
+      toggleCart() {
+        this.showCart = !this.showCart;
+      },
     addToCart(lesson) {
       if (lesson.spaces > 0) {
         lesson.spaces--;
@@ -141,4 +145,4 @@ new Vue({
   mounted() {
     this.fetchProducts();
   }
-});
+}});
