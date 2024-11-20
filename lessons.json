@@ -1,5 +1,5 @@
-{
-    
+[
+  {
     "id": 1001,
     "subject": "Math",
     "price": 30,
@@ -7,8 +7,7 @@
     "spaces": 5,
     "rating": 4,
     "location": "London"
-  }
-  
+  },
   {
     "id": 1002,
     "subject": "Science",
@@ -17,8 +16,7 @@
     "spaces": 4,
     "rating": 3,
     "location": "New York"
-  }
-  
+  },
   {
     "id": 1003,
     "subject": "History",
@@ -27,8 +25,7 @@
     "spaces": 3,
     "rating": 2,
     "location": "Rome"
-  }
-  
+  },
   {
     "id": 1004,
     "subject": "Geography",
@@ -37,8 +34,7 @@
     "spaces": 2,
     "rating": 5,
     "location": "Italy"
-  }
-
+  },
   {
     "id": 1005,
     "subject": "Physics",
@@ -47,8 +43,7 @@
     "spaces": 5,
     "rating": 3,
     "location": "China"
-  }
-  
+  },
   {
     "id": 1006,
     "subject": "Chemistry",
@@ -57,8 +52,7 @@
     "spaces": 7,
     "rating": 1,
     "location": "Russia"
-  }
-  
+  },
   {
     "id": 1007,
     "subject": "Biology",
@@ -67,8 +61,7 @@
     "spaces": 1,
     "rating": 2,
     "location": "Sardinia"
-  }
-  
+  },
   {
     "id": 1008,
     "subject": "English",
@@ -77,8 +70,7 @@
     "spaces": 5,
     "rating": 5,
     "location": "Turkey"
-  }
-  
+  },
   {
     "id": 1009,
     "subject": "Art",
@@ -87,8 +79,7 @@
     "spaces": 0,
     "rating": 2,
     "location": "France"
-  }
-  
+  },
   {
     "id": 1010,
     "subject": "Music",
@@ -97,8 +88,7 @@
     "spaces": 2,
     "rating": 2,
     "location": "Monaco"
-  }
-  
+  },
   {
     "id": 1011,
     "subject": "Computer Science",
@@ -107,8 +97,7 @@
     "spaces": 10,
     "rating": 5,
     "location": "Switzerland"
-  }
-  
+  },
   {
     "id": 1012,
     "subject": "Spanish",
@@ -117,8 +106,7 @@
     "spaces": 6,
     "rating": 4,
     "location": "Malta"
-  }
-  
+  },
   {
     "id": 1013,
     "subject": "Astronomy",
@@ -127,8 +115,7 @@
     "spaces": 15,
     "rating": 5,
     "location": "USA"
-  }
-  
+  },
   {
     "id": 1014,
     "subject": "Economics",
@@ -138,4 +125,4 @@
     "rating": 5,
     "location": "Amsterdam"
   }
-  
+]

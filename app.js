@@ -22,10 +22,10 @@ new Vue({
           (lesson.location && lesson.location.toLowerCase().includes(this.searchQuery.toLowerCase()))
         );
       });
-    
+
       return filteredLessons.sort((a, b) => {
         let modifier = this.sortOrder === 'asc' ? 1 : -1;
-    
+
         if (this.sortBy === 'price' || this.sortBy === 'spaces') {
           return (a[this.sortBy] - b[this.sortBy]) * modifier;
         } else {
@@ -47,14 +47,56 @@ new Vue({
         this.cart.push(lesson);
       }
     },
-    fetchProducts: async function () {
+    async fetchProducts() {
       try {
-          const response = await fetch('http://localhost:3000/collections/Lessons');
-          this.lessons = await response.json();
+        const response = await fetch('http://localhost:3000/Kitten/Lessons');
+        this.lessons = await response.json();
       } catch (error) {
-          console.error('Error fetching products:', error);
+        console.error('Error fetching products:', error);
       }
-    },
+    },
+    // Add a new lesson
+    async addLesson(newLesson) {
+      try {
+        const response = await fetch('http://localhost:3000/Kitten/Lessons', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newLesson),
+        });
+        const createdLesson = await response.json();
+        this.lessons.push(createdLesson);
+      } catch (error) {
+        console.error('Error adding lesson:', error);
+      }
+    },
+    // Update a lesson
+    async updateLesson(lesson) {
+      try {
+        const response = await fetch(`http://localhost:3000/Kitten/Lessons/${lesson._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(lesson),
+        });
+        const updatedLesson = await response.json();
+        console.log(updatedLesson.message);
+        this.fetchProducts(); // Refresh data
+      } catch (error) {
+        console.error('Error updating lesson:', error);
+      }
+    },
+    // Delete a lesson
+    async deleteLesson(lessonId) {
+      try {
+        const response = await fetch(`http://localhost:3000/Kitten/Lessons/${lessonId}`, {
+          method: 'DELETE',
+        });
+        const result = await response.json();
+        console.log(result.message);
+        this.fetchProducts(); // Refresh data
+      } catch (error) {
+        console.error('Error deleting lesson:', error);
+      }
+    },
     toggleCart() {
       this.showCart = !this.showCart;
     },
@@ -96,7 +138,7 @@ new Vue({
       }
     }
   },
-  mounted: function() {
+  mounted() {
     this.fetchProducts();
   }
 });
