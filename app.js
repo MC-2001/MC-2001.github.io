@@ -73,9 +73,9 @@ new Vue({
       }
     },
     // Update a lesson
-    async updateLesson(lesson) {
+    async updateLesson(_id) {
       try {
-        const response = await fetch(`http://localhost:3000/Kitten/Lessons/${lesson._id}`, {
+        const response = await fetch(`http://localhost:3000/Kitten/Lessons/${_id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(lesson),
