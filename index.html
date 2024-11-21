@@ -39,7 +39,7 @@
     </div>
 
     <button v-on:click="toggleCart" :disabled="cart.length === 0" class="cart-toggle-btn">
-      {{ showCart ? 'Back to Lessons' : 'View Cart' }}
+      {{ showCart ? 'Back to Lessons' : View Cart (${cart.length}) }}
       <i class="fas fa-shopping-cart"></i>
     </button>
 
