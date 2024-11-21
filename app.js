@@ -44,11 +44,11 @@ new Vue({
       toggleCart() {
         this.showCart = !this.showCart;
       },
-      addToCart(lesson) {
-        if (lesson.spaces > 0) {
-          lesson.spaces--;
-          this.cart.push(lesson);
-        }
+    addToCart(lesson) {
+      if (lesson.spaces > 0) {
+        lesson.spaces--;
+        this.cart.push(lesson);
+      }
     },
     async fetchProducts() {
       try {
