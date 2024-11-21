@@ -52,7 +52,7 @@ new Vue({
     },
     async fetchProducts() {
       try {
-        const response = await fetch('http://localhost:3000/Kitten/Lessons');
+        const response = await fetch('https://cw1-backend.onrender.com/Kitten/Lessons');
         this.lessons = await response.json();
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -61,7 +61,7 @@ new Vue({
     // Add a new lesson
     async addLesson(newLesson) {
       try {
-        const response = await fetch('http://localhost:3000/Kitten/Lessons', {
+        const response = await fetch('https://cw1-backend.onrender.com/Kitten/Lessons', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newLesson),
@@ -75,7 +75,7 @@ new Vue({
     // Update a lesson
     async updateLesson(_id) {
       try {
-        const response = await fetch(`http://localhost:3000/Kitten/Lessons/${_id}`, {
+        const response = await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${_id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(lesson),
@@ -90,7 +90,7 @@ new Vue({
     // Delete a lesson
     async deleteLesson(_id) {
       try {
-        const response = await fetch(`http://localhost:3000/Kitten/Lessons/${_id}`, {
+        const response = await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${_id}`, {
           method: 'DELETE',
         });
         
