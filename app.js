@@ -88,11 +88,12 @@ new Vue({
       }
     },
     // Delete a lesson
-    async deleteLesson(lessonId) {
+    async deleteLesson(_id) {
       try {
-        const response = await fetch(`http://localhost:3000/Kitten/Lessons/${lessonId}`, {
+        const response = await fetch(`http://localhost:3000/Kitten/Lessons/${_id}`, {
           method: 'DELETE',
         });
+        
         const result = await response.json();
         console.log(result.message);
         this.fetchProducts(); // Refresh data
