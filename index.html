@@ -73,11 +73,14 @@
       <div v-if="showCart">
         <h3>Your Cart</h3>
         <ul>
-          <li v-for="(item, index) in cart" :key="index">
+          <li v-for="item in groupedCart" :key="item.subject">
             <img :src="item.image" alt="Lesson Image" class="cart-item-image">
             <div class="cart-item-details">
-              <p>{{ item.subject }} - ${{ item.price }}</p>
-              <button v-on:click="removeFromCart(item, index)">Remove</button>
+              <p>
+                {{ item.subject }} - ${{ item.price }} 
+                (x{{ item.quantity }})
+              </p>
+              <button v-on:click="removeGroupedItem(item.subject)">Remove One</button>
             </div>
           </li>
         </ul>

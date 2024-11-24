@@ -295,3 +295,24 @@ vertical-align: middle;
 display: inline-block;
 vertical-align: middle;
 }
+
+.cart-toggle-btn {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-toggle-btn i {
+  margin-left: 10px;
+}
+
+.cart-toggle-btn span {
+  font-weight: bold;
+  margin-left: 5px;
+  color: yellow;
+}
