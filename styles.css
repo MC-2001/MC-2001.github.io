@@ -197,3 +197,23 @@ header {
   width: 200px; /* Sets a fixed width for the modal box */
   text-align: center; /* Centers text inside the modal */
 }
+
+.confirmation {
+  margin-top: 20px; /* Adds space above the confirmation message to separate it from preceding elements */
+  font-weight: bold; /* Makes the text bold to emphasize the message */
+  color: green; /* Colors the text green to signify success or positivity */
+}
+
+.cart-item-image {
+  width: 50px; /* Sets a fixed width for the cart item image */
+  height: 50px; /* Sets a fixed height for the cart item image */
+  object-fit: cover; /* Ensures the image is resized to cover the area without distortion */
+  margin-right: 10px; /* Adds spacing to the right of the image for separation */
+  vertical-align: middle; /* Aligns the image vertically with the text or other inline elements */
+}
+  
+.cart-item-details {
+  display: inline-block; /* Makes the details behave like an inline element while allowing block-level styling */
+  vertical-align: middle; /* Aligns the details vertically with the image */
+}
+  
