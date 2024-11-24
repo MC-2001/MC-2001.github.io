@@ -34,7 +34,21 @@ new Vue({
           let bValue = b[this.sortBy] || ''; // Fallback to empty string
           return aValue.localeCompare(bValue) * modifier;
         }
-      })
+      }),
+      
+     {
+      groupedCart() {
+        const grouped = {};
+        this.cart.forEach((lesson) => {
+          if (!grouped[lesson.subject]) {
+            grouped[lesson.subject] = { ...lesson, count: 0, totalPrice: 0 };
+          }
+          grouped[lesson.subject].count++;
+          grouped[lesson.subject].totalPrice += lesson.price;
+        });
+        return Object.values(grouped);
+      }
+    }
     },
     isFormValid() {
       return this.name && !this.nameError && this.phone && !this.phoneError;
@@ -101,13 +115,18 @@ new Vue({
         console.error('Error deleting lesson:', error);
       }
     },
-    removeFromCart(item, index) {
-      item.spaces++;
-      this.cart.splice(index, 1);
-      if (this.cart.length === 0) {
-        this.showCart = false;
+    removeFromCart(item) {
+      const index = this.cart.findIndex((cartItem) => cartItem.subject === item.subject);
+      if (index !== -1) {
+        this.cart[index].spaces++;
+        this.cart.splice(index, 1);
       }
     },
+    toggleCart() {
+      this.showCart = !this.showCart;
+    },
+
+    
     validateName() {
       const regex = /^[A-Za-z]+$/;
       this.nameError = regex.test(this.name) ? '' : 'Name must contain only letters';
