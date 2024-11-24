@@ -34,17 +34,7 @@ new Vue({
           let bValue = b[this.sortBy] || ''; // Fallback to empty string
           return aValue.localeCompare(bValue) * modifier;
         }
-      });
-    },
-    groupedCart() {
-      const grouped = {};
-      this.cart.forEach((item) => {
-        if (!grouped[item.subject]) {
-          grouped[item.subject] = { ...item, quantity: 0 };
-        }
-        grouped[item.subject].quantity++;
-      });
-      return Object.values(grouped);       
+      })
     },
     isFormValid() {
       return this.name && !this.nameError && this.phone && !this.phoneError;

@@ -284,8 +284,8 @@ color: green;
 }
 
 .cart-item-image {
-width: 50px;
-height: 50px;
+width: 100px;
+height: 100px;
 object-fit: cover;
 margin-right: 10px;
 vertical-align: middle;
@@ -294,25 +294,4 @@ vertical-align: middle;
 .cart-item-details {
 display: inline-block;
 vertical-align: middle;
-}
-
-.cart-toggle-btn {
-  position: relative;
-  padding: 10px 20px;
-  font-size: 18px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.cart-toggle-btn i {
-  margin-left: 10px;
-}
-
-.cart-toggle-btn span {
-  font-weight: bold;
-  margin-left: 5px;
-  color: yellow;
 }
