@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lessons List</title>
-  <!-- Include Vue.js CDN -->
+  <!-- Metadata and Linking Resources -->
+  <meta charset="UTF-8"> <!-- Specifies character encoding as UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Enables responsive design for mobile devices -->
+  <title>Lessons List</title> <!-- Page title -->
+
+  <!-- Include Vue.js from a CDN for reactive application development -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-  <!-- Include Font Awesome for Icons -->
+
+  <!-- Include Font Awesome for icons (e.g., search, cart, and star ratings) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <!-- Link to External CSS File -->
+
+  <!-- Link to an external stylesheet for custom styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Vue.js Application Root -->
   <div id="app">
-    <h1>Available Lessons</h1>
+    <!-- Header Section -->
+    <h1>Available Lessons</h1> <!-- Main heading for the page -->
 
+    <!-- Search Bar Section -->
     <div class="search-bar">
       <div class="search-container">
-        <i class="fas fa-search"></i>
+        <i class="fas fa-search"></i> <!-- Search icon -->
+        <!-- Search input bound to the 'searchQuery' data property -->
         <input type="text" v-model="searchQuery" placeholder="Search lessons by subject or location">
       </div>
     </div>
 
-    <div class="sorting-controls" v-if="!showCart">
+    <!-- Sorting Controls Section -->
+    <div class="sorting-controls" v-if="!showCart"> <!-- Only visible when cart is hidden -->
+      <!-- Dropdown for selecting sorting criteria -->
       <label for="sort-by">Sort by:</label>
       <select id="sort-by" v-model="sortBy">
         <option value="subject">Subject</option>
@@ -31,6 +41,7 @@
         <option value="spaces">Spaces</option>
       </select>
 
+      <!-- Dropdown for selecting sorting order -->
       <label for="sort-order">Order:</label>
       <select id="sort-order" v-model="sortOrder">
         <option value="asc">Ascending</option>
@@ -38,80 +49,93 @@
       </select>
     </div>
 
+    <!-- Cart Toggle Button -->
     <button v-on:click="toggleCart" :disabled="cart.length === 0" class="cart-toggle-btn">
+      <!-- Toggle button text dynamically changes based on the 'showCart' state -->
       {{ showCart ? 'Back to Lessons' : 'View Cart' }}
-      <i class="fas fa-shopping-cart"></i>
+      <i class="fas fa-shopping-cart"></i> <!-- Cart icon -->
     </button>
 
-    <div class="lesson-list" v-if="!showCart">
+    <!-- Lesson List Section -->
+    <div class="lesson-list" v-if="!showCart"> <!-- Only visible when cart is hidden -->
+      <!-- Dynamically render each lesson in the sorted list -->
       <div class="lesson" v-for="lesson in sortedLessons" :key="lesson.id">
-        <div class="subject">{{ lesson.subject }}</div>
-        <img :src="lesson.image" alt="Lesson Image">
-        <div class="location">Location: {{ lesson.location }}</div>
-        <div class="price">Price: ${{ lesson.price }}</div>
-        <div class="spaces" :class="{ outOfStock: lesson.spaces === 0 }">
+        <div class="subject">{{ lesson.subject }}</div> <!-- Lesson subject -->
+        <img :src="lesson.image" alt="Lesson Image"> <!-- Lesson image -->
+        <div class="location">Location: {{ lesson.location }}</div> <!-- Lesson location -->
+        <div class="price">Price: ${{ lesson.price }}</div> <!-- Lesson price -->
+
+        <!-- Availability information -->
+        <div class="spaces" :class="{ outOfStock: lesson.spaces === 0 }"> <!-- Add 'outOfStock' class if spaces are 0 -->
           Available: 
-          <span v-if="lesson.spaces > 0">{{ lesson.spaces }}</span>
-          <span v-else>Out of Stock</span>
+          <span v-if="lesson.spaces > 0">{{ lesson.spaces }}</span> <!-- Show available spaces -->
+          <span v-else>Out of Stock</span> <!-- Show 'Out of Stock' message if no spaces are left -->
         </div>
 
+        <!-- Rating stars -->
         <div class="rating">
           Rating:
+          <!-- Render 5 stars dynamically based on the lesson's rating -->
           <span v-for="star in 5" :key="star">
             <i class="fa" :class="star <= lesson.rating ? 'fa-star' : 'fa-star-o'"></i>
           </span>
         </div>
 
+        <!-- Add to Cart Button -->
         <button v-on:click="addToCart(lesson)" :disabled="lesson.spaces === 0" class="add-to-cart">
           Add to Cart
         </button>
       </div>
     </div>
     
-    <div id="app">
-      <!-- Cart Section -->
-      <div v-if="showCart">
-        <h3>Your Cart</h3>
-        <ul>
-          <li v-for="(item, index) in cart" :key="index">
-            <img :src="item.image" alt="Lesson Image" class="cart-item-image">
-            <div class="cart-item-details">
-              <p>{{ item.subject }} - ${{ item.price }}</p>
-              <button v-on:click="removeFromCart(item, index)">Remove</button>
-            </div>
-          </li>
-        </ul>
-        <button v-on:click="checkout">Checkout</button>
-      </div>
+    <!-- Cart Section -->
+    <div v-if="showCart"> <!-- Only visible when the cart is shown -->
+      <h3>Your Cart</h3> <!-- Cart heading -->
+      <ul>
+        <!-- Render each item in the cart -->
+        <li v-for="(item, index) in cart" :key="index">
+          <img :src="item.image" alt="Lesson Image" class="cart-item-image"> <!-- Cart item image -->
+          <div class="cart-item-details">
+            <p>{{ item.subject }} - ${{ item.price }}</p> <!-- Item subject and price -->
+            <button v-on:click="removeFromCart(item, index)">Remove</button> <!-- Remove button -->
+          </div>
+        </li>
+      </ul>
+      <button v-on:click="checkout">Checkout</button> <!-- Checkout button -->
+    </div>
 
     <!-- Modal Popup for Checkout -->
-    <!-- Modal Popup -->
-    <div v-if="showModal" class="modal">
+    <div v-if="showModal" class="modal"> <!-- Only visible when 'showModal' is true -->
       <div class="modal-content">
-        <h3>Checkout</h3>
+        <h3>Checkout</h3> <!-- Modal heading -->
+
+        <!-- Name Input -->
         <label>
           Name:
-          <input type="text" v-model="name" @input="validateName" />
-          <span class="error">{{ nameError }}</span>
+          <input type="text" v-model="name" @input="validateName" /> <!-- Bound to 'name' data property -->
+          <span class="error">{{ nameError }}</span> <!-- Show validation error if any -->
         </label>
+
+        <!-- Phone Input -->
         <label>
           Phone:
-          <input type="text" v-model="phone" @input="validatePhone" />
-          <span class="error">{{ phoneError }}</span>
+          <input type="text" v-model="phone" @input="validatePhone" /> <!-- Bound to 'phone' data property -->
+          <span class="error">{{ phoneError }}</span> <!-- Show validation error if any -->
         </label>
-        <button v-on:click="closeModal">Back</button>
-        <button v-on:click="sendOrder" :disabled="!isFormValid">Send</button>
+
+        <!-- Modal Buttons -->
+        <button v-on:click="closeModal">Back</button> <!-- Close modal -->
+        <button v-on:click="sendOrder" :disabled="!isFormValid">Send</button> <!-- Send order -->
       </div>
     </div>
 
-
     <!-- Confirmation Message -->
-    <div v-if="confirmationMessage" class="confirmation">
-      <p>{{ confirmationMessage }}</p>
+    <div v-if="confirmationMessage" class="confirmation"> <!-- Only visible when a message is available -->
+      <p>{{ confirmationMessage }}</p> <!-- Display confirmation message -->
     </div>
-
   </div>
 
-  <script src="app.js"></script>
+  <!-- Link to External JavaScript File -->
+  <script src="app.js"></script> <!-- Contains Vue.js application logic -->
 </body>
 </html>
