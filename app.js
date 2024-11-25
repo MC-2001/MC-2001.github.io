@@ -121,23 +121,29 @@ new Vue({
     },
 
     // Remove one lesson of a specific subject from the cart
-    removeSingleLesson(subject) {
-      const index = this.cart.findIndex((lesson) => lesson.subject === subject);
-      if (index !== -1) {
-        this.cart.splice(index, 1); // Remove one lesson of this subject
-        this.groupCart(); // Update grouped cart
-      }
-    },
+  removeSingleLesson(subject) {
+    const index = this.cart.findIndex((lesson) => lesson.subject === subject);
+    if (index !== -1) {
+      this.cart.splice(index, 1); // Remove one lesson of this subject
+      this.groupCart(); // Update grouped cart
+    }
+    // Automatically return to main page if cart is empty
+    if (this.cart.length === 0) {
+      this.showCart = false;
+    }
+  },
 
-    // Remove a specific item from the cart
-    removeFromCart(item, index) {
-      item.spaces++;
-      this.cart.splice(index, 1);
-      if (this.cart.length === 0) {
-        this.showCart = false;
-      }
-      this.groupCart();
-    },
+  // Remove a specific item from the cart
+  removeFromCart(item, index) {
+    item.spaces++;
+    this.cart.splice(index, 1); // Remove item from the cart
+    this.groupCart(); // Update grouped cart
+
+    // Automatically return to main page if cart is empty
+    if (this.cart.length === 0) {
+      this.showCart = false;
+    }
+  },
 
     // Toggle cart visibility
     toggleCart() {
