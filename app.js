@@ -2,7 +2,6 @@ new Vue({
   el: '#app', // Binds this Vue instance to the DOM element with id="app"
   data: {
     lessons: [],               // Stores the list of lessons fetched from the server
-    orders:[],
     sortBy: 'subject',         // Initialize default by subject
     sortOrder: 'asc',          // Initialize default sort order (ascending)
     searchQuery: '',           // Search query entered by the user for filtering lessons
@@ -119,34 +118,21 @@ new Vue({
     },
     sendOrder() {
       if (this.isFormValid) {
-        // Construct the order object
         const order = {
           name: this.name,
           phone: this.phone,
-          items: this.cart.reduce((acc, item) => {
-            // Check if the item already exists in the order
-            const existingItem = acc.find(i => i.lessonId === item._id);
-            if (existingItem) {
-              // Update quantity and total price for the existing item
-              existingItem.quantity += 1;
-              existingItem.totalPrice += item.price;
-            } else {
-              // Add new item to the list
-              acc.push({
-                lessonId: item._id,  // Use the database ID as lessonId
-                subject: item.subject,
-                unitPrice: item.price,
-                quantity: 1,
-                totalPrice: item.price,
-              });
-            }
-            return acc;
-          }, []),
-          totalAmount: this.cart.reduce((sum, item) => sum + item.price, 0),
+          items: this.cart.map((item) => ({
+            lessonId: item._id, // Use the database ID as lessonId
+            price: item.price || 0, // Ensure price has a default value
+            subject: item.subject,
+            spaces: item.spaces,
+          })),
+          total: this.cart.reduce((sum, item) => sum + (item.price || 0), 0), // Ensure valid total
           date: new Date().toISOString(),
         };
     
-        // Send the order to the server
+        console.log('Order being sent:', order); // Debugging
+    
         fetch('https://cw1-backend.onrender.com/Kitten/Orders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -156,11 +142,11 @@ new Vue({
           .then((data) => {
             console.log('Order stored successfully:', data);
             this.confirmationMessage = `Order for ${this.name} has been submitted!`;
-            this.cart = []; // Clear the cart after successful submission
-            this.name = ''; // Clear the name field
-            this.phone = ''; // Clear the phone field
-            this.showModal = false; // Close the modal
-            this.showCart = false; // Hide the cart
+            this.cart = [];
+            this.name = '';
+            this.phone = '';
+            this.showModal = false;
+            this.showCart = false;
           })
           .catch((error) => {
             console.error('Error storing order:', error);
@@ -170,7 +156,7 @@ new Vue({
         this.nameError = this.name ? '' : 'Name is required';
         this.phoneError = this.phone ? '' : 'Phone number is required';
       }
-    },    
+    }
   },
   mounted() {
     this.fetchProducts();
