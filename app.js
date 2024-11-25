@@ -121,7 +121,12 @@ new Vue({
         const order = {
           name: this.name,
           phone: this.phone,
-          items: this.cart,
+          items: this.cart.map((item) => ({
+            lessonId: item._id, // Use the database ID as lessonId
+            price: item.price,
+            subject: item.subject,
+            spaces: item.spaces,
+          })),
           total: this.cart.reduce((sum, item) => sum + item.price, 0),
           date: new Date().toISOString(),
         };
