@@ -127,7 +127,7 @@ new Vue({
             subject: item.subject,
             spaces: item.spaces,
           })),
-          total: this.cart.reduce((sum, item) => sum + (item.price || 0), 0), // Ensure valid total
+          total: this.cart.reduce((item.price)),
           date: new Date().toISOString(),
         };
     
