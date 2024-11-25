@@ -2,74 +2,75 @@
 <html lang="en">
 <head>
   <!-- Metadata and Linking Resources -->
-  <meta charset="UTF-8"> <!-- Specifies character encoding as UTF-8 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Enables responsive design for mobile devices -->
-  <title>Lessons List</title> <!-- Page title -->
+  <meta charset="UTF-8"> <!-- Specifies character encoding as UTF-8 to support special characters -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the page responsive for mobile devices -->
+  <title>Lessons List</title> <!-- Title of the webpage, displayed in the browser's tab -->
 
   <!-- Include Vue.js from a CDN for reactive application development -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> <!-- Vue.js library for building interactive UI -->
 
   <!-- Include Font Awesome for icons (e.g., search, cart, and star ratings) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /> <!-- For using icons like search, shopping cart, and stars -->
 
   <!-- Link to an external stylesheet for custom styles -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css"> <!-- Custom CSS styles for the page -->
 </head>
 <body>
   <!-- Vue.js Application Root -->
-  <div id="app">
+  <div id="app"> <!-- The main container for the Vue.js application -->
     <!-- Header Section -->
-    <h1>Available Lessons</h1> <!-- Main heading for the page -->
+    <h1>Available Lessons</h1> <!-- Main heading for the page, showing the title "Available Lessons" -->
 
     <!-- Search Bar Section -->
     <div class="search-bar">
       <div class="search-container">
-        <i class="fas fa-search"></i> <!-- Search icon -->
+        <i class="fas fa-search"></i> <!-- Search icon from Font Awesome -->
         <!-- Search input bound to the 'searchQuery' data property -->
         <input type="text" v-model="searchQuery" placeholder="Search lessons by subject or location">
+        <!-- The 'v-model' binds the input value to the 'searchQuery' variable in Vue data -->
       </div>
     </div>
 
     <!-- Sorting Controls Section -->
-    <div class="sorting-controls" v-if="!showCart"> <!-- Only visible when cart is hidden -->
+    <div class="sorting-controls" v-if="!showCart"> <!-- Only visible when the cart is hidden (showCart is false) -->
       <!-- Dropdown for selecting sorting criteria -->
       <label for="sort-by">Sort by:</label>
       <select id="sort-by" v-model="sortBy">
-        <option value="subject">Subject</option>
-        <option value="location">Location</option>
-        <option value="price">Price</option>
-        <option value="spaces">Spaces</option>
+        <option value="subject">Subject</option> <!-- Option to sort by lesson subject -->
+        <option value="location">Location</option> <!-- Option to sort by location -->
+        <option value="price">Price</option> <!-- Option to sort by price -->
+        <option value="spaces">Spaces</option> <!-- Option to sort by available spaces -->
       </select>
 
       <!-- Dropdown for selecting sorting order -->
       <label for="sort-order">Order:</label>
       <select id="sort-order" v-model="sortOrder">
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
+        <option value="asc">Ascending</option> <!-- Ascending order for sorting -->
+        <option value="desc">Descending</option> <!-- Descending order for sorting -->
       </select>
     </div>
 
     <!-- Cart Toggle Button -->
     <button v-on:click="toggleCart" :disabled="cart.length === 0" class="cart-toggle-btn">
-      <!-- Toggle button text dynamically changes based on the 'showCart' state -->
+      <!-- Button toggles between 'View Cart' and 'Back to Lessons' depending on cart state -->
       {{ showCart ? 'Back to Lessons' : 'View Cart' }}
-      <i class="fas fa-shopping-cart"></i> <!-- Cart icon -->
+      <i class="fas fa-shopping-cart"></i> <!-- Shopping cart icon -->
     </button>
 
     <!-- Lesson List Section -->
-    <div class="lesson-list" v-if="!showCart"> <!-- Only visible when cart is hidden -->
+    <div class="lesson-list" v-if="!showCart"> <!-- Only visible when the cart is hidden -->
       <!-- Dynamically render each lesson in the sorted list -->
       <div class="lesson" v-for="lesson in sortedLessons" :key="lesson.id">
-        <div class="subject">{{ lesson.subject }}</div> <!-- Lesson subject -->
-        <img :src="lesson.image" alt="Lesson Image"> <!-- Lesson image -->
-        <div class="location">Location: {{ lesson.location }}</div> <!-- Lesson location -->
-        <div class="price">Price: ${{ lesson.price }}</div> <!-- Lesson price -->
+        <div class="subject">{{ lesson.subject }}</div> <!-- Display lesson subject -->
+        <img :src="lesson.image" alt="Lesson Image"> <!-- Dynamic lesson image -->
+        <div class="location">Location: {{ lesson.location }}</div> <!-- Display lesson location -->
+        <div class="price">Price: ${{ lesson.price }}</div> <!-- Display lesson price -->
 
         <!-- Availability information -->
-        <div class="spaces" :class="{ outOfStock: lesson.spaces === 0 }"> <!-- Add 'outOfStock' class if spaces are 0 -->
+        <div class="spaces" :class="{ outOfStock: lesson.spaces === 0 }">
           Available: 
-          <span v-if="lesson.spaces > 0">{{ lesson.spaces }}</span> <!-- Show available spaces -->
-          <span v-else>Out of Stock</span> <!-- Show 'Out of Stock' message if no spaces are left -->
+          <span v-if="lesson.spaces > 0">{{ lesson.spaces }}</span> <!-- Show available spaces if greater than 0 -->
+          <span v-else>Out of Stock</span> <!-- Show 'Out of Stock' message if no spaces available -->
         </div>
 
         <!-- Rating stars -->
@@ -77,14 +78,14 @@
           Rating:
           <!-- Render 5 stars dynamically based on the lesson's rating -->
           <span v-for="star in 5" :key="star">
-            <i class="fa" :class="star <= lesson.rating ? 'fa-star' : 'fa-star-o'"></i>
+            <i class="fa" :class="star <= lesson.rating ? 'fa-star' : 'fa-star-o'"></i> <!-- Star icons, filled or empty depending on rating -->
           </span>
         </div>
 
         <!-- Add to Cart Button -->
         <button v-on:click="addToCart(lesson)" :disabled="lesson.spaces === 0" class="add-to-cart">
           Add to Cart
-        </button>
+        </button> <!-- Button to add lesson to cart, disabled if no spaces are left -->
       </div>
     </div>
     
@@ -94,10 +95,10 @@
       <ul>
         <!-- Render each item in the cart -->
         <li v-for="(item, index) in cart" :key="index">
-          <img :src="item.image" alt="Lesson Image" class="cart-item-image"> <!-- Cart item image -->
+          <img :src="item.image" alt="Lesson Image" class="cart-item-image"> <!-- Image of cart item -->
           <div class="cart-item-details">
-            <p>{{ item.subject }} - ${{ item.price }}</p> <!-- Item subject and price -->
-            <button v-on:click="removeFromCart(item, index)">Remove</button> <!-- Remove button -->
+            <p>{{ item.subject }} - ${{ item.price }}</p> <!-- Cart item subject and price -->
+            <button v-on:click="removeFromCart(item, index)">Remove</button> <!-- Remove button to delete an item from cart -->
           </div>
         </li>
       </ul>
@@ -112,30 +113,30 @@
         <!-- Name Input -->
         <label>
           Name:
-          <input type="text" v-model="name" @input="validateName" /> <!-- Bound to 'name' data property -->
-          <span class="error">{{ nameError }}</span> <!-- Show validation error if any -->
+          <input type="text" v-model="name" @input="validateName" /> <!-- Name input field, bound to 'name' data property -->
+          <span class="error">{{ nameError }}</span> <!-- Display validation error for name if any -->
         </label>
 
         <!-- Phone Input -->
         <label>
           Phone:
-          <input type="text" v-model="phone" @input="validatePhone" /> <!-- Bound to 'phone' data property -->
-          <span class="error">{{ phoneError }}</span> <!-- Show validation error if any -->
+          <input type="text" v-model="phone" @input="validatePhone" /> <!-- Phone input field, bound to 'phone' data property -->
+          <span class="error">{{ phoneError }}</span> <!-- Display validation error for phone if any -->
         </label>
 
         <!-- Modal Buttons -->
-        <button v-on:click="closeModal">Back</button> <!-- Close modal -->
-        <button v-on:click="sendOrder" :disabled="!isFormValid">Send</button> <!-- Send order -->
+        <button v-on:click="closeModal">Back</button> <!-- Button to close the modal -->
+        <button v-on:click="sendOrder" :disabled="!isFormValid">Send</button> <!-- Button to submit the order, disabled if form is invalid -->
       </div>
     </div>
 
     <!-- Confirmation Message -->
-    <div v-if="confirmationMessage" class="confirmation"> <!-- Only visible when a message is available -->
-      <p>{{ confirmationMessage }}</p> <!-- Display confirmation message -->
+    <div v-if="confirmationMessage" class="confirmation"> <!-- Only visible when a confirmation message is set -->
+      <p>{{ confirmationMessage }}</p> <!-- Display the confirmation message after a successful order -->
     </div>
   </div>
 
   <!-- Link to External JavaScript File -->
-  <script src="app.js"></script> <!-- Contains Vue.js application logic -->
+  <script src="app.js"></script> <!-- External JavaScript file containing Vue.js application logic -->
 </body>
 </html>
