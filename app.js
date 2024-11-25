@@ -1,22 +1,20 @@
 new Vue({
-  el: '#app',
+  el: '#app', // Binds this Vue instance to the DOM element with id="app"
   data: {
-    lessons: [],
-    orders: [],
-    sortBy: 'subject',
-    sortOrder: 'asc',
-    searchQuery: '',
-    cart: [],
-    showCart: false,
-    name: '',
-    phone: '',
-    nameError: '',
-    phoneError: '',
-    confirmationMessage: '',
-    showModal: false,
-    groupedCart: {},
+    lessons: [],               // Stores the list of lessons fetched from the server
+    orders:[],
+    sortBy: 'subject',         // Initialize default by subject
+    sortOrder: 'asc',          // Initialize default sort order (ascending)
+    searchQuery: '',           // Search query entered by the user for filtering lessons
+    cart: [],                  // Array to store lessons added to the shopping cart
+    showCart: false,           // Controls whether the cart is visible or not
+    name: '',                  // User's name for checkout
+    phone: '',                 // User's phone number for checkout
+    nameError: '',             // Error message for invalid name input
+    phoneError: '',            // Error message for invalid phone input
+    confirmationMessage: '',   // Message displayed after successfully submitting an order
+    showModal: false           // Controls visibility of the modal for checkout
   },
-
   computed: {
     sortedLessons() {
       let filteredLessons = this.lessons.filter((lesson) => {
@@ -39,19 +37,26 @@ new Vue({
     },
     isFormValid() {
       return this.name && !this.nameError && this.phone && !this.phoneError;
-    },
+    }
   },
-
   methods: {
+    toggleCart() {
+      this.showCart = !this.showCart;
+    },
+    addToCart(lesson) {
+      if (lesson.spaces > 0) {
+        lesson.spaces--;
+        this.cart.push(lesson);
+      }
+    },
     async fetchProducts() {
       try {
         const response = await fetch('https://cw1-backend.onrender.com/Kitten/Lessons');
         this.lessons = await response.json();
       } catch (error) {
-        console.error('Error fetching lessons:', error);
+        console.error('Error fetching products:', error);
       }
     },
-
     async addLesson(newLesson) {
       try {
         const response = await fetch('https://cw1-backend.onrender.com/Kitten/Lessons', {
@@ -65,136 +70,83 @@ new Vue({
         console.error('Error adding lesson:', error);
       }
     },
-
     async updateLesson(_id, lesson) {
       try {
-        await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${_id}`, {
+        const response = await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${_id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(lesson),
         });
+        const updatedLesson = await response.json();
+        console.log(updatedLesson.message);
         this.fetchProducts();
       } catch (error) {
         console.error('Error updating lesson:', error);
       }
     },
-
     async deleteLesson(_id) {
       try {
-        await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${_id}`, {
+        const response = await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${_id}`, {
           method: 'DELETE',
         });
+        const result = await response.json();
+        console.log(result.message);
         this.fetchProducts();
       } catch (error) {
         console.error('Error deleting lesson:', error);
       }
     },
-
-    groupCart() {
-      this.groupedCart = this.cart.reduce((groups, lesson) => {
-        if (!groups[lesson.subject]) {
-          groups[lesson.subject] = {
-            ...lesson,
-            count: 0,
-          };
-        }
-        groups[lesson.subject].count += 1;
-        return groups;
-      }, {});
-    },
-
-    async updateLessonSpaces(lessonId, newSpaces) {
-      try {
-        await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${lessonId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ spaces: newSpaces }),
-        });
-      } catch (error) {
-        console.error('Error updating lesson spaces:', error);
-      }
-    },
-
-    addToCart(lesson) {
-      if (lesson.spaces > 0) {
-        lesson.spaces--;
-        this.cart.push({ ...lesson });
-        this.groupCart();
-      } else {
-        alert('No spaces available for this lesson.');
-      }
-    },
-
-    removeSingleLesson(subject) {
-      const index = this.cart.findIndex((lesson) => lesson.subject === subject);
-      if (index !== -1) {
-        this.cart.splice(index, 1);
-        this.groupCart();
-      }
-      if (this.cart.length === 0) {
-        this.showCart = false;
-      }
-    },
-
     removeFromCart(item, index) {
       item.spaces++;
       this.cart.splice(index, 1);
-      this.groupCart();
-
       if (this.cart.length === 0) {
         this.showCart = false;
       }
     },
-
-    toggleCart() {
-      this.showCart = !this.showCart;
-    },
-
     validateName() {
       const regex = /^[A-Za-z]+$/;
       this.nameError = regex.test(this.name) ? '' : 'Name must contain only letters';
     },
-
     validatePhone() {
       const regex = /^[0-9]+$/;
       this.phoneError = regex.test(this.phone) ? '' : 'Phone must contain only numbers';
     },
-
     checkout() {
       this.showModal = true;
     },
-
     closeModal() {
       this.showModal = false;
     },
-
     sendOrder() {
       if (this.isFormValid) {
-        const groupedItems = this.cart.reduce((acc, item) => {
-          const existingItem = acc.find((i) => i.lessonId === item._id);
-          if (existingItem) {
-            existingItem.quantity += 1;
-            existingItem.totalPrice += item.price;
-          } else {
-            acc.push({
-              lessonId: item._id,
-              subject: item.subject,
-              unitPrice: item.price,
-              quantity: 1,
-              totalPrice: item.price,
-            });
-          }
-          return acc;
-        }, []);
-
+        // Construct the order object
         const order = {
           name: this.name,
           phone: this.phone,
-          items: groupedItems,
-          totalAmount: groupedItems.reduce((sum, item) => sum + item.totalPrice, 0),
+          items: this.cart.reduce((acc, item) => {
+            // Check if the item already exists in the order
+            const existingItem = acc.find(i => i.lessonId === item._id);
+            if (existingItem) {
+              // Update quantity and total price for the existing item
+              existingItem.quantity += 1;
+              existingItem.totalPrice += item.price;
+            } else {
+              // Add new item to the list
+              acc.push({
+                lessonId: item._id,  // Use the database ID as lessonId
+                subject: item.subject,
+                unitPrice: item.price,
+                quantity: 1,
+                totalPrice: item.price,
+              });
+            }
+            return acc;
+          }, []),
+          totalAmount: this.cart.reduce((sum, item) => sum + item.price, 0),
           date: new Date().toISOString(),
         };
-
+    
+        // Send the order to the server
         fetch('https://cw1-backend.onrender.com/Kitten/Orders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -204,11 +156,11 @@ new Vue({
           .then((data) => {
             console.log('Order stored successfully:', data);
             this.confirmationMessage = `Order for ${this.name} has been submitted!`;
-            this.cart = [];
-            this.name = '';
-            this.phone = '';
-            this.showModal = false;
-            this.showCart = false;
+            this.cart = []; // Clear the cart after successful submission
+            this.name = ''; // Clear the name field
+            this.phone = ''; // Clear the phone field
+            this.showModal = false; // Close the modal
+            this.showCart = false; // Hide the cart
           })
           .catch((error) => {
             console.error('Error storing order:', error);
@@ -218,9 +170,8 @@ new Vue({
         this.nameError = this.name ? '' : 'Name is required';
         this.phoneError = this.phone ? '' : 'Phone number is required';
       }
-    },
+    },    
   },
-
   mounted() {
     this.fetchProducts();
   },

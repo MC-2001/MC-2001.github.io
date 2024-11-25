@@ -92,12 +92,12 @@
     <div v-if="showCart"> <!-- Only visible when the cart is shown -->
       <h3>Your Cart</h3> <!-- Cart heading -->
       <ul>
-        <!-- Group lessons by subject and display the count -->
-        <li v-for="(group, subject) in groupedCart" :key="subject">
-          <img :src="group.image" alt="Lesson Image" class="cart-item-image"> <!-- Cart item image -->
+        <!-- Render each item in the cart -->
+        <li v-for="(item, index) in cart" :key="index">
+          <img :src="item.image" alt="Lesson Image" class="cart-item-image"> <!-- Cart item image -->
           <div class="cart-item-details">
-            <p>{{ subject }} - ${{ group.price }} ({{ group.count }} lessons)</p> <!-- Subject, price, and count -->
-            <button v-on:click="removeSingleLesson(subject)">Remove One</button> <!-- Remove one lesson at a time -->
+            <p>{{ item.subject }} - ${{ item.price }}</p> <!-- Item subject and price -->
+            <button v-on:click="removeFromCart(item, index)">Remove</button> <!-- Remove button -->
           </div>
         </li>
       </ul>
