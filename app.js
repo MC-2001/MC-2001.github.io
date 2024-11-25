@@ -127,7 +127,8 @@ new Vue({
             subject: item.subject,
             spaces: item.spaces,
           })),
-          total: this.cart.reduce((item.price)),
+
+          total: this.cart[0].price || 0, // Price of the first lesson (if exists)
           date: new Date().toISOString(),
         };
     
