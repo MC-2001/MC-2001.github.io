@@ -21,7 +21,7 @@
     <!-- Header Section -->
     <h1>Available Lessons</h1> <!-- Main heading for the page, showing the title "Available Lessons" -->
 
-    <!-- Search Bar Section -->
+    <!-- Search Bar Section //  filters lessons dynamically based on subject or location  -->
     <div class="search-bar">
       <div class="search-container">
         <i class="fas fa-search"></i> <!-- Search icon from Font Awesome -->
@@ -94,7 +94,7 @@
       <h3>Your Cart</h3> <!-- Cart heading -->
       <ul>
         <!-- Render each item in the cart -->
-        <li v-for="(item, index) in cart" :key="index">
+        <li v-for="(item, index) in cart" :key="index"> <!--the index is use as the value for the :key attribute -->
           <img :src="item.image" alt="Lesson Image" class="cart-item-image"> <!-- Image of cart item -->
           <div class="cart-item-details">
             <p>{{ item.subject }} - ${{ item.price }}</p> <!-- Cart item subject and price -->

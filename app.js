@@ -4,7 +4,7 @@ new Vue({
     lessons: [],               // Stores the list of lessons fetched from the server
     sortBy: 'subject',         // Initialize default sort criteria to 'subject'
     sortOrder: 'asc',          // Initialize default sort order to ascending
-    searchQuery: '',           // Search query entered by the user for filtering lessons
+    searchQuery: '',           // Search query entered by the user for filtering lessons//null
     cart: [],                  // Array to store lessons added to the shopping cart
     showCart: false,           // Boolean controlling visibility of the shopping cart
     name: '',                  // User's name for checkout
@@ -58,7 +58,7 @@ new Vue({
       }
     },
 
-    // Fetches the list of lessons from the server
+    // Fetches the list of lessons from the server to display on frt-end//GET
     async fetchProducts() {
       try {
         const response = await fetch('https://cw1-backend.onrender.com/Kitten/Lessons');  // Fetch lessons from the API
@@ -68,7 +68,7 @@ new Vue({
       }
     },
 
-    // Adds a new lesson to the server and updates the `lessons` list
+    // Adds a new lesson to the server and updates the `lessons` list on frt-end //POST
     async addLesson(newLesson) {
       try {
         const response = await fetch('https://cw1-backend.onrender.com/Kitten/Lessons', {
@@ -83,7 +83,7 @@ new Vue({
       }
     },
 
-    // Updates an existing lesson on the server
+    // Updates an existing lesson on the server //PUT
     async updateLesson(_id, lesson) {
       try {
         const response = await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${_id}`, {
@@ -99,7 +99,7 @@ new Vue({
       }
     },
 
-    // Deletes a lesson from the server
+    // Deletes a lesson from the server //DELETE  
     async deleteLesson(_id) {
       try {
         const response = await fetch(`https://cw1-backend.onrender.com/Kitten/Lessons/${_id}`, {
